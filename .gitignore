@@ -1,0 +1,52 @@
+# =========================
+# 通用忽略项
+# =========================
+
+# 操作系统
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE / 编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# 日志文件
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# =========================
+# 前端（React/Vue/Vite 等）
+# =========================
+
+# 忽略所有 dist / build 目录（由 CI 构建）
+frontend/build
+frontend/.vite
+frontend/.nuxt
+frontend/.output
+
+# node_modules（每个子项目单独 ignore 更安全）
+frontend/node_modules
+
+# 环境变量
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.production.local
+
+
+# Java 后端（如 Spring Boot）
+backend/target/
+
+
+# Git 钩子（除非你特意管理它们）
+.git/hooks/
+
+# 临时文件
+*.tmp
+*.bak
