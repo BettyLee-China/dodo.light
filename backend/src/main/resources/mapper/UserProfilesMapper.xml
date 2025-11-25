@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.light.repository.UserProfilesMapper">
+    <insert id="initUserProfile" parameterType="UserProfile">
+        insert into user_profiles(id,user_id,avatar,bio,gender,nickname)
+        values (#{id},#{userId},#{avatar},#{bio},#{gender},#{nickname});
+    </insert>
+    <update id="modifyUserProfile" parameterType="UserProfile">
+        update user_profiles
+        <set>
+            <if test="userProfile.nickname != null">nickname=#{userProfile.nickname},</if>
+            <if test="userProfile.birthday !=null">birthday=#{userProfile.birthday},</if>
+            <if test="userProfile.gender !=null">gender=#{userProfile.gender},</if>
+            <if test="userProfile.bio !=null">bio=#{userProfile.bio},</if>
+        </set>
+        where user_id=#{userId};
+    </update>
+    <select id="selectProfileByUserId" resultType="UserProfile">
+        select * from user_profiles where user_id=#{userId};
+    </select>
+    <update id="updateAvatarByUserId">
+        update user_profiles
+        set avatar=#{avatar}
+        where user_id=#{userId};
+    </update>
+</mapper>

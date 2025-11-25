@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.light.repository.OrderItemMapper">
+   <select id="selectOrderItemByOrderId" resultType="OrderItem">
+       select id,order_id,product_id,product_name,quantity,product_image,unit_price,total_price
+       from order_item
+       where order_id=#{orderId}
+   </select>
+    <insert id="insertOrderItem" parameterType="OrderItem">
+        insert into order_item(
+                               order_id,product_id,product_name,quantity,product_image,unit_price,total_price
+        )
+        values (#{orderId},#{productId},#{productName},#{quantity},#{productImage},#{unitPrice},#{totalPrice})
+    </insert>
+
+<!--     private Long id;
+    private String orderId;
+    private Long productId;
+    private String productName;
+    private String productImage;
+    private BigDecimal unitPrice;
+    private Integer quantity;
+    private BigDecimal totalPrice;-->
+</mapper>

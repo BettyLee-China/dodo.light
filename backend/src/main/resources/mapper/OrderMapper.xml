@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.light.repository.OrderMapper">
+    <select id="selectTimeoutOrders" resultType="Order">
+        SELECT *
+        FROM `orders`
+        WHERE order_status = 'UNPAID'
+          AND create_time &lt;= #{timeoutTime}
+    </select>
+    <update id="updateById" parameterType="Order">
+
+    </update>
+    <select id="selectOrderByOrderNo" resultType="Order">
+        select * from orders where order_id=#{orderId};
+    </select>
+    <update id="updateOrderStatus">
+        update orders
+        set order_status=#{orderStatus}
+        where order_id=#{orderId}
+    </update>
+    <insert id="insertOrder" parameterType="Order">
+        insert into orders (
+                            order_id,user_id,order_status,total_amount,
+                            freight_amount,discount_amount,
+                            pay_amount,receiver_name,receiver_phone,province,city,district,
+                            detail_address,create_time
+        )
+        values(
+               #{orderId},#{userId},#{orderStatus},#{totalAmount},
+               #{freightAmount},#{discountAmount},#{payAmount},
+               #{receiverName},#{receiverPhone},#{province},#{city},#{district},#{detailAddress},
+               #{createTime}
+              )
+    </insert>
+
+    <update id="updatePayTime">
+        update orders
+        set pay_time=#{payTime}
+        where order_id=#{orderId};
+    </update>
+    <select id="selectOrdersByUserId" resultType="Order">
+        select *
+            from orders
+        where user_id=#{userId};
+    </select>
+
+
+</mapper>

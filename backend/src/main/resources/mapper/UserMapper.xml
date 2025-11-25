@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.light.repository.UserMapper">
+  <select id="findByProviderAndProviderId" resultType="PureUser">
+    select * from users where provider=#{provider} and providerId=#{providerId};
+  </select>
+    <select id="findByUsername" resultType="com.demo.light.bean.PureUser">
+        SELECT
+            id,
+            username,
+            password,
+            create_time,
+            update_time,
+            user_type,
+            status,
+            account_no_expire,
+            credentials_no_expire,
+            account_no_locked,
+            account_enabled,
+            provider,
+            provider_id,
+            nickname,
+            avatar,
+            last_login
+        FROM users
+        WHERE username = #{username}
+    </select>
+  <insert id="saveOneUser" parameterType="PureUser">
+    insert into users(id,username,password,provider,provider_id,user_type
+      ,create_time,update_time,status,account_no_expire,credentials_no_expire,
+                              account_no_locked,account_enabled,last_login)
+    values (#{id},#{username},#{password},#{provider},#{providerId},
+            #{userType},#{createTime},#{updateTime},#{status},#{accountNoExpire},
+             #{credentialsNoExpire},#{accountNoLocked},#{accountEnabled},#{lastLogin});
+  </insert>
+    <select id="findUserIdByUsername" resultType="Integer">
+        select id from users where username=#{username};
+    </select>
+    <select id="findPermissionsByUsername" resultType="String">
+        select code from users u
+        inner join roles_permissions rp on u.id=rp.user_id
+        inner join permissions p on rp.permissions_id=p.id
+        where username=#{username};
+    </select>
+
+    <select id="findByUserId" resultType="PureUser">
+        SELECT
+            id,
+            username,
+            password,
+            create_time,
+            update_time,
+            user_type,
+            status,
+            account_no_expire,
+            credentials_no_expire,
+            account_no_locked,
+            account_enabled,
+            provider,
+            provider_id,
+            nickname,
+            avatar,
+            last_login
+        FROM users
+        WHERE id = #{id}
+    </select>
+
+
+</mapper>
+

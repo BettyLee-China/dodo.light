@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.light.repository.WalletMapper">
+    <update id="deductBalance">
+        update wallet
+        set balance=balance-#{amount}
+        where photographer_id=#{photographerId}
+        and balance >= #{amount}
+    </update>
+    <update id="increaseBalance">
+        update wallet
+        set balance=balance+#{amount}
+        where user_id=#{userId}
+    </update>
+    <update id="freezeBalance">
+        update wallet
+        set frozen_amount=#{frozeAmount}
+        where user_id=#{userId}
+    </update>
+    <update id="deductFrozenBalance">
+        update wallet
+        set frozen_amount-=#{frozenAmount}
+        where user_id=#{userId}
+        and frozen_amount >=#{frozenAmount}
+    </update>
+    <update id="unfreezeBalance">
+        update wallet
+        set frozen_amount-=#{frozenAmount} ,
+        balance+=#{frozenAmount}
+        where user_id=#{userId}
+        and frozen_amount >=#{frozenAmount}
+    </update>
+    <update id="updateAlipayUserId">
+        update wallet
+        set alipay_user_id=#{alipayUserId},bind_alipay_time=#{bindAlipayTime}
+        where user_id=#{userId}
+    </update>
+    <select id="selectByUserId" resultType="Wallet">
+        select * from wallet where user_id=#{userId}
+    </select>
+    <insert id="insertWallet" parameterType="Wallet">
+        insert into wallet(user_id,balance,frozen_amount,alipay_user_id,bind_alipay_time,created_at,updated_at)
+        values (#{userId},#{balance},#{frozenAmount},#{alipayUserId},#{bindAlipayTime},#{createdAt},#{updatedAt})
+    </insert>
+
+</mapper>

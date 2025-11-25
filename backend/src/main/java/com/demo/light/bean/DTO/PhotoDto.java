@@ -1,0 +1,22 @@
+package com.demo.light.bean.DTO;
+
+import com.demo.light.enums.PhotoMode;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class PhotoDto {
+    private String title;
+    private String imageUrl;
+    private String description;
+    private BigDecimal price;
+    private PhotoMode photoMode;
+    private Integer photographerId;
+}

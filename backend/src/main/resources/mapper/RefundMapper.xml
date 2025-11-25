@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.light.repository.RefundMapper">
+    <select id="selectByOrderId" resultType="Refund">
+        select *
+        from refund
+        where order_id=#{orderId}
+        and status != 'DELETE'
+        order by create_time desc;
+    </select>
+
+    <select id="selectByOutRequestNo" resultType="Refund">
+        select *
+        from refund
+        where out_request_no=#{outRequestNo};
+    </select>
+
+    <insert id="insertRefund" parameterType="Refund">
+        insert into refund (id,order_id,refund_no,out_request_no,refund_amount,reason,status,refund_time,create_time,
+                            update_time)
+        values (#{id},#{orderId},#{refundNo},#{outRequestNo},#{refundAmount},#{reason},#{status},#{refundTime},
+                #{createTime},#{updateTime})
+    </insert>
+
+    <update id="updateStatus" >
+        update refund
+          set  status=#{status}
+        where out_request_no=#{outRequestNo};
+    </update>
+</mapper>

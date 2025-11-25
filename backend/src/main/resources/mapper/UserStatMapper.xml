@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.light.repository.UserStatMapper">
+    <select id="selectUserStatByUserId" resultType="UserStat">
+        select * from user_stats where user_id=#{userId};
+    </select>
+    <insert id="insertUserStat" parameterType="UserStat">
+        insert into user_stats(id,user_id,follow_count,follower_count)
+        values(#{id},#{userId},0,0);
+    </insert>
+
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.light.repository.WithdrawalMapper">
+ <select id="findPending" resultType="Withdrawal">
+     select * from withdrawal_record
+     where status='PENDING';
+ </select>
+    <update id="updateStatus">
+        update withdrawal_record
+        set status=#{status}
+        where id=#{id} and tx_id=#{txId}
+    </update>
+
+    <insert id="insertRecord">
+        insert into withdrawal_record(photographer_id,amount,account_no,account_name,channel,
+                                      status,created_at)
+        values (#{photographerId},#{amount},#{accountNo},#{accountName},#{channelEnum},
+                #{status},#{createdAt})
+    </insert>
+    <update id="updateRecordById" parameterType="Withdrawal">
+        update withdrawal_record
+        set tx_id=#{withdrawal.txId},
+            status=#{withdrawal.status},
+            processed_at=#{withdrawal.processedAt}
+        where id=#{withdrawal.id}
+    </update>
+
+</mapper>
